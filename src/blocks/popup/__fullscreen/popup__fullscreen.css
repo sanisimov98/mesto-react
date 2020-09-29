@@ -1,0 +1,21 @@
+@import url('./__fullscreen-caption/popup__fullscreen-caption.css');
+@import url('./__fullscreen-close/popup__fullscreen-close.css');
+@import url('./__fullscreen-container/popup__fullscreen-container.css');
+@import url('./__fullscreen-image/popup__fullscreen-image.css');
+
+.popup__fullscreen {
+    background-color: rgba(0, 0, 0, 0.9);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.5s, opacity 0.5s ease-in-out;
+    z-index: 1;
+}

@@ -1,0 +1,15 @@
+.profile__picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 100%;
+    overflow: hidden;
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: opacity .35s ease-in;;
+}
+
+.profile__picture:hover {
+    opacity: 0.2;
+}
