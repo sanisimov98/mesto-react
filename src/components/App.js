@@ -138,7 +138,6 @@ function App() {
         card={selectedCard}
         onClose={closeAllPopups}
       />
-      )
       <Footer />
     </div>
   );

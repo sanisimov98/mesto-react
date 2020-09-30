@@ -93,11 +93,13 @@ class Api {
   }
 }
 
+const baseurl = "https://mesto.nomoreparties.co/v1/cohort-14";
+const header = "57c05f36-a8d9-486d-bc00-4738c3850df5"
 
 const api = new Api({
-  baseURL: "https://mesto.nomoreparties.co/v1/cohort-14",
+  baseURL: baseurl,
   headers: {
-    authorization: "57c05f36-a8d9-486d-bc00-4738c3850df5",
+    authorization: header,
     "Content-Type": "application/json",
   },
 });
