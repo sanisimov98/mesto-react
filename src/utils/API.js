@@ -1,4 +1,4 @@
-class API {
+class Api {
   constructor(options) {
     this._options = options;
   }
@@ -94,7 +94,7 @@ class API {
 }
 
 
-const api = new API({
+const api = new Api({
   baseURL: "https://mesto.nomoreparties.co/v1/cohort-14",
   headers: {
     authorization: "57c05f36-a8d9-486d-bc00-4738c3850df5",
