@@ -13,23 +13,23 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
-      selectedCard: false,
+      selectedCard: undefined,
     };
   }
 
   handleEditAvatarClick = () => {
     this.setState({
-      isEditProfilePopupOpen: !this.state.isEditProfilePopupOpen,
+      isEditAvatarPopupOpen: true,
     });
   };
 
   handleAddPlaceClick = () => {
-    this.setState({ isAddPlacePopupOpen: !this.state.isAddPlacePopupOpen });
+    this.setState({ isAddPlacePopupOpen: true });
   };
 
   handleEditProfileClick = () => {
     this.setState({
-      isEditAvatarPopupOpen: !this.state.isEditProfilePopupOpen,
+      isEditProfilePopupOpen: true,
     });
   };
 
@@ -44,7 +44,7 @@ class App extends React.Component {
       isEditProfilePopupOpen: false,
       isAddPlacePopupOpen: false,
       isEditAvatarPopupOpen: false,
-      selectedCard: false,
+      selectedCard: undefined,
     });
   };
 
@@ -148,10 +148,10 @@ class App extends React.Component {
             </>
           }
         />
-          <ImagePopup
-            card={this.state.selectedCard}
-            onClose={this.closeAllPopups}
-          />
+        <ImagePopup
+          card={this.state.selectedCard}
+          onClose={this.closeAllPopups}
+        />
         )
         <Footer />
       </div>

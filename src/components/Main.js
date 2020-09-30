@@ -1,5 +1,4 @@
 import React from "react";
-import PopupWithForm from "./PopupWithForm";
 import api from "../utils/API.js";
 import Card from "./Card.js";
 
@@ -14,6 +13,20 @@ class Main extends React.Component {
     };
   }
 
+  componentDidMount() {
+    Promise.all([
+      api.getUserData().catch((err) => console.log(err)),
+      api.getInitialCards().catch((err) => console.log(err)),
+    ]).then(([UserData, InitialCards]) =>
+      this.setState({
+        userName: UserData.name,
+        userDescription: UserData.about,
+        userAvatar: UserData.avatar,
+        cards: InitialCards,
+      })
+    );
+  }
+
   render() {
     return (
       <main className="content">
@@ -23,8 +36,8 @@ class Main extends React.Component {
               className="profile__picture"
               style={{ backgroundImage: `url(${this.state.userAvatar})` }}
               alt="Профиль"
-              onClick={this.props.onEditAvatar}>
-            </div>
+              onClick={this.props.onEditAvatar}
+            ></div>
           </div>
           <div className="profile__container">
             <div className="profile__info">
@@ -47,34 +60,19 @@ class Main extends React.Component {
           </div>
         </section>
         <section className="elements">
-        {this.state.cards.map((element, i) => 
-             (
-              <Card card = {element} key = {i} onCardClick = {this.props.onCardClick} />
-            )
-          , document.querySelector('.elements'))}
+          {this.state.cards.map(
+            (element, i) => (
+              <Card
+                card={element}
+                key={i}
+                onCardClick={this.props.onCardClick}
+              />
+            ),
+            document.querySelector(".elements")
+          )}
         </section>
       </main>
     );
-  }
-
-  
-  componentDidMount() {
-    api
-      .getUserData()
-      .then((res) =>
-        this.setState({
-          userName: res.name,
-          userDescription: res.about,
-          userAvatar: res.avatar,
-        })
-      )
-      .catch((err) => console.log(err));
-    api
-      .getInitialCards()
-      .then((res) => this.setState({
-        cards: res,
-      }))
-      .catch((err) => console.log(err));
   }
 }
 
