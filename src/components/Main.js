@@ -1,24 +1,10 @@
 import React from "react";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import api from "../utils/api.js";
 import Card from "./Card.js";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setUserDescription] = React.useState("");
-  const [userAvatar, setUserAvatar] = React.useState("");
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([
-      api.getUserData().catch((err) => console.log(err)),
-      api.getInitialCards().catch((err) => console.log(err)),
-    ]).then(([UserData, InitialCards]) => {
-      setUserName(UserData.name);
-      setUserDescription(UserData.about);
-      setUserAvatar(UserData.avatar);
-      setCards(InitialCards);
-    });
-  });
+  const currentUser = React.useContext(CurrentUserContext);
 
   return (
     <main className="content">
@@ -26,7 +12,7 @@ function Main(props) {
         <div className="profile__picture-container">
           <div
             className="profile__picture"
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
             alt="Профиль"
             onClick={props.onEditAvatar}
           ></div>
@@ -34,7 +20,7 @@ function Main(props) {
         <div className="profile__container">
           <div className="profile__info">
             <div className="profile__info-container">
-              <h1 className="profile__title">{userName}</h1>
+              <h1 className="profile__title">{currentUser.name}</h1>
               <button
                 className="profile__edit-button"
                 type="button"
@@ -42,7 +28,7 @@ function Main(props) {
                 onClick={props.onEditProfile}
               ></button>
             </div>
-            <p className="profile__text">{userDescription}</p>
+            <p className="profile__text">{currentUser.about}</p>
           </div>
           <button
             className="profile__add-button"
@@ -52,9 +38,15 @@ function Main(props) {
         </div>
       </section>
       <section className="elements">
-        {cards.map(
+        {props.cards.map(
           (element, i) => (
-            <Card card={element} key={i} onCardClick={props.onCardClick} />
+            <Card
+              card={element}
+              key={i}
+              onCardClick={props.onCardClick}
+              onCardLike={props.onCardLike}
+              onCardDelete = {props.onCardDelete}
+            />
           ),
           document.querySelector(".elements")
         )}

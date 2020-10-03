@@ -34,9 +34,8 @@ class Api {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
-        name: values["username"],
-        about: values["text"],
-        avatar: values["avatar"],
+        name: values.name,
+        about: values.about,
       }),
     }).then((res) => {
       return res.json();
@@ -59,18 +58,22 @@ class Api {
     });
   }
 
-  likeButton(cardId) {
-    return fetch(`${this._options.baseURL}/cards/likes/${cardId}`, {
-      method: "PUT",
-      headers: this._options.headers,
-    });
-  }
-
-  dislikeButton(cardId) {
-    return fetch(`${this._options.baseURL}/cards/likes/${cardId}`, {
-      method: "DELETE",
-      headers: this._options.headers,
-    });
+  changeLikeCardStatus(cardId, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._options.baseURL}/cards/likes/${cardId}`, {
+        method: "PUT",
+        headers: this._options.headers,
+      }).then((res) => {
+        return res.json();
+      });
+    } else {
+      return fetch(`${this._options.baseURL}/cards/likes/${cardId}`, {
+        method: "DELETE",
+        headers: this._options.headers,
+      }).then((res) => {
+        return res.json();
+      });
+    }
   }
 
   setProfileImage(value) {
@@ -78,7 +81,7 @@ class Api {
       method: "PATCH",
       headers: this._options.headers,
       body: JSON.stringify({
-        avatar: value,
+        avatar : value.avatar,
       }),
     }).then((res) => {
       return res.json();
@@ -89,12 +92,14 @@ class Api {
     return fetch(`${this._options.baseURL}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._options.headers,
+    }).then((res) => {
+      return res.json();
     });
   }
 }
 
 const baseurl = "https://mesto.nomoreparties.co/v1/cohort-14";
-const header = "57c05f36-a8d9-486d-bc00-4738c3850df5"
+const header = "57c05f36-a8d9-486d-bc00-4738c3850df5";
 
 const api = new Api({
   baseURL: baseurl,

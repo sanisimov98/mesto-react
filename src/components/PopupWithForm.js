@@ -10,6 +10,7 @@ function PopupWithForm(props) {
       method="GET"
       action="#"
       noValidate
+      onSubmit = {props.onSubmit}
     >
       <div className="popup__container">
         <button
