@@ -1,8 +1,9 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import PropTypes from 'prop-types';
 
-function EditProfilePopup(props) {
+function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
   const currentUser = React.useContext(CurrentUserContext);
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -22,7 +23,7 @@ function EditProfilePopup(props) {
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateUser({
+    onUpdateUser({
       name : name,
       about: description,
     });
@@ -32,8 +33,8 @@ function EditProfilePopup(props) {
     <PopupWithForm
       name="profile"
       title="Редактировать профиль"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Сохранить"
       children={
@@ -69,5 +70,11 @@ function EditProfilePopup(props) {
     />
   );
 }
+
+EditProfilePopup.propTypes = {
+  onUpdateUser: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+} 
 
 export default EditProfilePopup;

@@ -1,14 +1,13 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
-import CurrentUserContext from "../contexts/CurrentUserContext.js";
+import PropTypes from 'prop-types';
 
-function EditAvatarPopup(props) {
-  const currentUser = React.useContext(CurrentUserContext);
+function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose }) {
   const avatarRef = React.useRef();
 
   function handleSubmit(evt) {
     evt.preventDefault();
-    props.onUpdateAvatar({
+    onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
   }
@@ -17,8 +16,8 @@ function EditAvatarPopup(props) {
     <PopupWithForm
       name="profile-image"
       title="Обновить аватар"
-      isOpen={props.isOpen}
-      onClose={props.onClose}
+      isOpen={isOpen}
+      onClose={onClose}
       onSubmit={handleSubmit}
       buttonText="Сохранить"
       children={
@@ -39,5 +38,11 @@ function EditAvatarPopup(props) {
     />
   );
 }
+
+EditAvatarPopup.propTypes = {
+  onUpdateAvatar: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+} 
 
 export default EditAvatarPopup;

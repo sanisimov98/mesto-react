@@ -3,30 +3,32 @@ class Api {
     this._options = options;
   }
 
+  handleResponse = (res) => {
+    if (res.ok){
+      return res
+    }
+    else {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }  
+  }
+
   getUserData() {
     return fetch(`${this._options.baseURL}/users/me`, {
       headers: this._options.headers,
     }).then((res) => {
-      if (res.ok) {
+      this.handleResponse(res);
         return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
+      })
+    }
 
   getInitialCards() {
     return fetch(`${this._options.baseURL}/cards`, {
       headers: this._options.headers,
     })
       .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`);
+        this.handleResponse(res);
+        return res.json();
       })
-      .then((res) => {
-        return res;
-      });
   }
 
   setProfileData(values) {
@@ -51,10 +53,8 @@ class Api {
         link: values["link"],
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      this.handleResponse(res);
+      return res.json();
     });
   }
 

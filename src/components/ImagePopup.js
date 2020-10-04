@@ -2,6 +2,7 @@ import React from "react";
 
 function ImagePopup(props) {
   return (
+    //Я пока что оставлю шаблонные строки и изучу classnames после дедлайна) Спасибо за рекомендацию!
     <div
       className={`popup__fullscreen ${
         props.card !== undefined ? "popup_opened" : ""

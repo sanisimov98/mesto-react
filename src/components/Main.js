@@ -47,8 +47,7 @@ function Main(props) {
               onCardLike={props.onCardLike}
               onCardDelete = {props.onCardDelete}
             />
-          ),
-          document.querySelector(".elements")
+          )
         )}
       </section>
     </main>

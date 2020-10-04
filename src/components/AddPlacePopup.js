@@ -1,7 +1,8 @@
 import React from "react";
 import PopupWithForm from "./PopupWithForm.js";
+import PropTypes from 'prop-types';
 
-function AddPlacePopup(props) {
+function AddPlacePopup({isOpen, onClose, onSendCard}) {
     const [cardName, setCardName] = React.useState('');
     const [cardLink, setCardLink] = React.useState('');
 
@@ -15,7 +16,7 @@ function AddPlacePopup(props) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        props.onSendCard({
+        onSendCard({
             name: cardName,
             link: cardLink,
         })
@@ -24,8 +25,8 @@ function AddPlacePopup(props) {
     return(<PopupWithForm
         name="add-card"
         title="Новое место"
-        isOpen={props.isOpen}
-        onClose={props.onClose}
+        isOpen={isOpen}
+        onClose={onClose}
         onSubmit={handleSubmit}
         buttonText="Создать"
         children={
@@ -59,5 +60,11 @@ function AddPlacePopup(props) {
         }
       />)
 }
+
+AddPlacePopup.propTypes = {
+    onSendCard: PropTypes.func.isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+  } 
 
 export default AddPlacePopup;
